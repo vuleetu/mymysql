@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/ziutek/mymysql/mysql"
-	_ "github.com/ziutek/mymysql/native"
+	"github.com/vuleetu/mymysql/mysql"
+	_ "github.com/vuleetu/mymysql/native"
 )
 
 const (

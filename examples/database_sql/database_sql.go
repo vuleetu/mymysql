@@ -3,7 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/ziutek/mymysql/godrv" // Go driver for database/sql package
+	_ "github.com/vuleetu/mymysql/godrv" // Go driver for database/sql package
 	"log"
 )
 

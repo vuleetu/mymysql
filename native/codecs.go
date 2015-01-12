@@ -2,7 +2,7 @@ package native
 
 import (
 	"bytes"
-	"github.com/ziutek/mymysql/mysql"
+	"github.com/vuleetu/mymysql/mysql"
 	"io"
 	"time"
 )
