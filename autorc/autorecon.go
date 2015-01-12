@@ -68,6 +68,10 @@ func (c *Conn) Clone() *Conn {
 	}
 }
 
+func (c *Conn) Ping() error {
+	return c.Raw.Ping()
+}
+
 func (c *Conn) SetTimeout(timeout time.Duration) {
 	c.Raw.SetTimeout(timeout)
 }
@@ -128,9 +132,28 @@ func (c *Conn) Use(dbname string) (err error) {
 	panic(nil)
 }
 
+func (c *Conn) ThreadId() uint32 {
+	return c.Raw.ThreadId()
+}
+
+func (c *Conn) Start(sql string, params ...interface{}) (res mysql.Result, err error) {
+	if err = c.connectIfNotConnected(); err != nil {
+		return
+	}
+	nn := 0
+	for {
+		if res, err = c.Raw.Start(sql, params...); err == nil {
+			return
+		}
+		if c.reconnectIfNetErr(&nn, &err); err != nil {
+			return
+		}
+	}
+	panic(nil)
+}
+
 // Automatic connect/reconnect/repeat version of Query
 func (c *Conn) Query(sql string, params ...interface{}) (rows []mysql.Row, res mysql.Result, err error) {
-
 	if err = c.connectIfNotConnected(); err != nil {
 		return
 	}
